@@ -12,7 +12,7 @@ var express = require('express')
   , FacebookStrategy = require('passport-facebook').Strategy
   , TwitterStrategy = require('passport-twitter').Strategy;
 
-mongoose.connect(process.env.MONGOLAB_URI || 'mongodb://localhost/stand-with-todd');
+mongoose.connect(process.env.MONGOHQ_URL || 'mongodb://localhost/stand-with-todd');
 
 var Signature = require('./signature');
 
