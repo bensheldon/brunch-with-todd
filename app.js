@@ -12,13 +12,13 @@ var express = require('express')
   , FacebookStrategy = require('passport-facebook').Strategy
   , TwitterStrategy = require('passport-twitter').Strategy;
 
-mongoose.connect('mongodb://localhost/stand-with-todd');
+mongoose.connect(process.env.MONGOLAB_URI || 'mongodb://localhost/stand-with-todd');
 
 var Signature = require('./signature');
 
 passport.use(new FacebookStrategy({
-    clientID: '441658239274026',
-    clientSecret: 'afd01dad95a3917e7ddc47b36df38aa2',
+    clientID: process.env.FACEBOOK_CLIENT_ID,
+    clientSecret: process.env.FACEBOOK_CLIENT_SECRET,
     callbackURL: "http://stand-with-todd.herokuapp.com/sign/facebook/callback",
     profileFields: ['id', 'displayName', 'photos']
   },
@@ -42,8 +42,8 @@ passport.use(new FacebookStrategy({
 ));
 
 passport.use(new TwitterStrategy({
-    consumerKey: 'KV4lhAlaizhR4aygFuzAhA',
-    consumerSecret: 'aOvozhLccJaIlxET7WOVHrEDnNp6g4vKTmFUoKDzsg',
+    consumerKey: process.env.TWITTER_CONSUMER_KEY,
+    consumerSecret: process.env.TWITTER_CONSUMER_SECRET,
     callbackURL: "http://stand-with-todd.herokuapp.com/sign/twitter/callback"
   },
   function(token, tokenSecret, profile, done) {
@@ -77,7 +77,7 @@ app.configure(function(){
   app.use(express.bodyParser());
   app.use(express.methodOverride());
   app.use(express.cookieParser());
-  app.use(express.session({ secret: 'asdlfkajsdflkjsdflfj' }));
+  app.use(express.session({ secret: process.env.EXPRESS_SESSION_SECRET }));
   app.use(passport.initialize());
   app.use(passport.session());
   app.use(app.router);
