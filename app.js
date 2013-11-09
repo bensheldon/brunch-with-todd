@@ -9,9 +9,10 @@ var express = require('express')
   , path = require('path')
   , mongoose = require('mongoose')
   , passport = require('passport')
-  , FacebookStrategy = require('passport-facebook').Strategy;
+  , FacebookStrategy = require('passport-facebook').Strategy
+  , TwitterStrategy = require('passport-twitter').Strategy;
 
-mongoose.connect('mongodb://localhost/norum');
+mongoose.connect('mongodb://localhost/stand-with-todd');
 
 var Signature = require('./signature');
 
@@ -22,11 +23,11 @@ passport.use(new FacebookStrategy({
     profileFields: ['id', 'displayName', 'photos']
   },
   function(accessToken, refreshToken, profile, done) {
-    Signature.findOrCreate({socialType: 'fb', socialId: 1}, function(err, user) {
+    Signature.findOrCreate({socialType: 'fb', socialId: profile.id}, function(err, user) {
       if (err) { return done(err); }
 
       try {
-        var pictureUrl = profile._json.picture.data.url.replace('_q.jpg', '_n.jpg');
+        var pictureUrl = profile.photos[0].value.replace('_q.jpg', '_n.jpg');
       } catch (err) {
         var pictureUrl = null;
       }
@@ -35,13 +36,29 @@ passport.use(new FacebookStrategy({
       user.picture_url = pictureUrl;
       user.save();
 
+      done(null, null);
+    });
+  }
+));
 
-      console.log(user);
+passport.use(new TwitterStrategy({
+    consumerKey: 'KV4lhAlaizhR4aygFuzAhA',
+    consumerSecret: 'aOvozhLccJaIlxET7WOVHrEDnNp6g4vKTmFUoKDzsg',
+    callbackURL: "http://stand-with-todd.herokuapp.com/sign/twitter/callback"
+  },
+  function(token, tokenSecret, profile, done) {
+    Signature.findOrCreate({socialType: 'twitter', socialId: profile.id}, function(err, user) {
+      if (err) { return done(err); }
+
+      user.name = profile.displayName;
+      user.picture_url = profile.photos[0].value.replace('_normal', '');
+      user.save();
 
       done(null, null);
     });
   }
 ));
+
 
 var app = express();
 
@@ -74,9 +91,13 @@ app.configure('development', function(){
 app.get('/', routes.index);
 app.get('/more', routes.more);
 
-
 app.get('/sign/facebook', passport.authenticate('facebook', { scope: 'email' }));
 app.get('/sign/facebook/callback', passport.authenticate('facebook', {
+  successRedirect: 'http://www.standwithtodd.com?signed=true', failureRedirect: 'http://www.standwithtodd.com?signed=true'
+}));
+
+app.get('/sign/twitter', passport.authenticate('twitter'));
+app.get('/sign/twitter/callback', passport.authenticate('twitter', {
   successRedirect: 'http://www.standwithtodd.com?signed=true', failureRedirect: 'http://www.standwithtodd.com?signed=true'
 }));
 
