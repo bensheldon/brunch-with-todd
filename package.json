@@ -1,12 +1,17 @@
 {
   "name": "stand-with-todd-backend",
   "version": "0.0.1",
+  "engines": {
+    "node": ">= 0.5.0",
+    "npm": "1.1.x"
+  },
   "private": true,
   "scripts": {
     "start": "node app"
   },
   "dependencies": {
-    "express": "3.0.0rc3"
+    "express": "3.0.0rc3",
+    "mongoose": ">=3.1.1"
   },
   "devDependencies": {
     "nodemon":"*"
