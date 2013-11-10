@@ -5,8 +5,8 @@ var signatureSchema = new mongoose.Schema({
   socialType: String,
   socialId: String,
   name: String,
-  picture_url: String,
-  created: { type: Date, default: Date.now }
+  picture_url: { type: String, index: true },
+  created: { type: Date, default: Date.now, index: true }
 });
 
 signatureSchema.plugin(findOrCreate);
