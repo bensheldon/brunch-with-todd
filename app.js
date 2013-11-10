@@ -93,12 +93,12 @@ app.get('/more', routes.more);
 
 app.get('/sign/facebook', passport.authenticate('facebook', { scope: 'email' }));
 app.get('/sign/facebook/callback', passport.authenticate('facebook', {
-  successRedirect: 'http://www.standwithtodd.com?signed=true', failureRedirect: 'http://www.standwithtodd.com?signed=true'
+  successRedirect: 'http://www.lettoddwork.org?signed=true', failureRedirect: 'http://www.lettoddwork.org?signed=true'
 }));
 
 app.get('/sign/twitter', passport.authenticate('twitter'));
 app.get('/sign/twitter/callback', passport.authenticate('twitter', {
-  successRedirect: 'http://www.standwithtodd.com?signed=true', failureRedirect: 'http://www.standwithtodd.com?signed=true'
+  successRedirect: 'http://www.lettoddwork.org?signed=true', failureRedirect: 'http://www.lettoddwork.org?signed=true'
 }));
 
 http.createServer(app).listen(app.get('port'), function(){
