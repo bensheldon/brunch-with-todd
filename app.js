@@ -35,7 +35,7 @@ passport.use(new FacebookStrategy({
   function(accessToken, refreshToken, profile, done) {
     createSignature('fb', profile.id, {
       name: profile.displayName,
-      pictureUrl: (profile.photos[0] && profile.photos[0].value.replace('_q.jpg', '_n.jpg'))
+      picture_url: (profile.photos[0] && profile.photos[0].value.replace('_q.jpg', '_n.jpg'))
     }, done);
   }
 ));
@@ -48,7 +48,7 @@ passport.use(new TwitterStrategy({
   function(token, tokenSecret, profile, done) {
     createSignature('twitter', profile.id, {
       name: profile.displayName,
-      pictureUrl: (profile.photos[0] && profile.photos[0].value.replace('_normal', ''))
+      picture_url: (profile.photos[0] && profile.photos[0].value.replace('_normal', ''))
     }, done);
   }
 ));
