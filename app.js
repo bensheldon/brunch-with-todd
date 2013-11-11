@@ -1,5 +1,4 @@
 /* GLOBALS */
-
 var APP_HOST = "http://stand-with-todd.herokuapp.com";
 var REDIRECT_AFTER_SIGNED = "http://www.lettoddwork.org?signed=true";
 
