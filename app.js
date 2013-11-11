@@ -29,7 +29,7 @@ var createSignature = function(socialType, socialId, userParams, cb){
 passport.use(new FacebookStrategy({
     clientID: process.env.FACEBOOK_CLIENT_ID,
     clientSecret: process.env.FACEBOOK_CLIENT_SECRET,
-    callbackURL: "#{APP_HOST}/sign/facebook/callback",
+    callbackURL: APP_HOST + "/sign/facebook/callback",
     profileFields: ['id', 'displayName', 'photos']
   },
   function(accessToken, refreshToken, profile, done) {
@@ -43,7 +43,7 @@ passport.use(new FacebookStrategy({
 passport.use(new TwitterStrategy({
     consumerKey: process.env.TWITTER_CONSUMER_KEY,
     consumerSecret: process.env.TWITTER_CONSUMER_SECRET,
-    callbackURL: "#{APP_HOST}/sign/twitter/callback"
+    callbackURL: APP_HOST + "/sign/twitter/callback"
   },
   function(token, tokenSecret, profile, done) {
     createSignature('twitter', profile.id, {
