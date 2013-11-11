@@ -16,49 +16,42 @@ mongoose.connect(process.env.MONGOHQ_URL || 'mongodb://localhost/stand-with-todd
 
 var Signature = require('./signature');
 
+var APP_HOST = "http://stand-with-todd.herokuapp.com";
+var REDIRECT_AFTER_SIGNED = "http://www.lettoddwork.org?signed=true";
+
+var createSignature = function(socialType, socialId, userParams, cb){
+  Signature.findOrCreate({socialType: socialType, socialId: socialId}, userParams, function(err, user) {
+    if (err) return err;
+    cb();
+  });
+}
+
 passport.use(new FacebookStrategy({
     clientID: process.env.FACEBOOK_CLIENT_ID,
     clientSecret: process.env.FACEBOOK_CLIENT_SECRET,
-    callbackURL: "http://stand-with-todd.herokuapp.com/sign/facebook/callback",
+    callbackURL: "#{APP_HOST}/sign/facebook/callback",
     profileFields: ['id', 'displayName', 'photos']
   },
   function(accessToken, refreshToken, profile, done) {
-    Signature.findOrCreate({socialType: 'fb', socialId: profile.id}, function(err, user) {
-      if (err) { return done(err); }
-
-      try {
-        var pictureUrl = profile.photos[0].value.replace('_q.jpg', '_n.jpg');
-      } catch (err) {
-        var pictureUrl = null;
-      }
-
-      user.name = profile.displayName;
-      user.picture_url = pictureUrl;
-      user.save();
-
-      done(null, null);
-    });
+    createSignature('fb', profile.id, {
+      name: profile.displayName,
+      pictureUrl: (profile.photos[0] && profile.photos[0].value.replace('_q.jpg', '_n.jpg'))
+    }, done);
   }
 ));
 
 passport.use(new TwitterStrategy({
     consumerKey: process.env.TWITTER_CONSUMER_KEY,
     consumerSecret: process.env.TWITTER_CONSUMER_SECRET,
-    callbackURL: "http://stand-with-todd.herokuapp.com/sign/twitter/callback"
+    callbackURL: "#{APP_HOST}/sign/twitter/callback"
   },
   function(token, tokenSecret, profile, done) {
-    Signature.findOrCreate({socialType: 'twitter', socialId: profile.id}, function(err, user) {
-      if (err) { return done(err); }
-
-      user.name = profile.displayName;
-      user.picture_url = profile.photos[0].value.replace('_normal', '');
-      user.save();
-
-      done(null, null);
-    });
+    createSignature('twitter', profile.id, {
+      name: profile.displayName,
+      pictureUrl: (profile.photos[0] && profile.photos[0].value.replace('_normal', ''))
+    }, done);
   }
 ));
-
 
 var app = express();
 
@@ -89,17 +82,10 @@ app.configure('development', function(){
 });
 
 app.get('/', routes.index);
-app.get('/more', routes.more);
-
 app.get('/sign/facebook', passport.authenticate('facebook', { scope: 'email' }));
-app.get('/sign/facebook/callback', passport.authenticate('facebook', {
-  successRedirect: 'http://www.lettoddwork.org?signed=true', failureRedirect: 'http://www.lettoddwork.org?signed=true'
-}));
-
+app.get('/sign/facebook/callback', passport.authenticate('facebook', { successRedirect: REDIRECT_AFTER_SIGNED, failureRedirect: REDIRECT_AFTER_SIGNED }));
 app.get('/sign/twitter', passport.authenticate('twitter'));
-app.get('/sign/twitter/callback', passport.authenticate('twitter', {
-  successRedirect: 'http://www.lettoddwork.org?signed=true', failureRedirect: 'http://www.lettoddwork.org?signed=true'
-}));
+app.get('/sign/twitter/callback', passport.authenticate('twitter', { successRedirect: REDIRECT_AFTER_SIGNED, failureRedirect: REDIRECT_AFTER_SIGNED }));
 
 http.createServer(app).listen(app.get('port'), function(){
   console.log("Express server listening on port " + app.get('port'));
