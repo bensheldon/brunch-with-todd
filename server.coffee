@@ -47,8 +47,6 @@ createSignature = (socialType, socialId, userParams, cb) ->
     return err  if err
     cb()
 
-
-
 # BOILERPLATE EXPRESS SETUP
 app = express()
 app.set "trust proxy", true
@@ -74,15 +72,20 @@ app.configure "development", ->
 
 
 # MAIN API ENDPOINT
-app.get "/", (req, res) ->
+app.get "/api", (req, res) ->
   Signature.count (err, count) ->
-    Signature.find(picture_url:
-      $ne: null
-    ).sort("-created").skip(parseInt(req.query.skip or 0)).limit(parseInt(req.query.limit or 20)).exec (err, results) ->
-      res.send
-        signers: results
-        count: count
-
+    Signature
+      .find(
+        picture_url:
+          $ne: null
+      )
+      .sort("-created")
+      .skip(parseInt(req.query.skip || 0))
+      .limit(parseInt(req.query.limit || 20))
+      .exec (err, results) ->
+        res.send
+          signers: results
+          count: count
 
 # PASSPORT STRATEGIES
 passport.use new FacebookStrategy(
@@ -107,8 +110,8 @@ passport.use new TwitterStrategy(
   , done
 )
 passport_redirects =
-  successRedirect: REDIRECT_AFTER_SIGNED
-  failureRedirect: REDIRECT_AFTER_SIGNED
+  successRedirect: "#{APP_HOST}/?signed=true"
+  failureRedirect: "#{APP_HOST}/?signed=true"
 
 app.get "/sign/facebook", passport.authenticate("facebook", { scope: "email" })
 app.get "/sign/facebook/callback", passport.authenticate("facebook", passport_redirects)

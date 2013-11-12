@@ -1,0 +1,182 @@
+button_color(base_color)
+  background base_color
+  border 1px solid darken(base_color, 10%)
+
+  &:hover
+    background darken(base_color, 10%)
+
+
+html, body
+  height 100%
+
+body
+  background: url(/images/bg.jpg) no-repeat center center fixed;
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  background-size: cover;
+  font-family: 'Open Sans', sans-serif;
+  color: #fff;
+  margin 0
+
+a
+  color #fff
+  text-decoration underline
+  cursor pointer
+
+  &:hover
+    text-decoration none
+
+#social
+  padding 10px
+
+#container
+  width:90%;
+  margin:0 auto;
+  float:none
+
+  h1
+    text-transform: uppercase;
+    font-size 35px
+    line-height 40px
+    margin: 0.4em 0
+
+  p
+    font-size 14px
+    line-height 20px
+
+  .sign-container
+    position relative
+    margin 20px 0
+    text-align center
+
+    .stand-arrow
+      background: url(/images/stand-arrow.png) no-repeat -18px -4px;
+      display none
+
+    .sign-button
+      width 250px
+      margin-right 5px
+      padding 12px 16px
+      display inline-block
+      text-align center
+      color #fff
+      text-decoration none
+      border-radius 3px
+      text-transform uppercase
+      font-size 14px
+      margin-bottom 5px
+
+      .fa
+        margin-right 5px
+
+      &:active
+        box-shadow: inset 0 3px 6px hsla(0, 0%, 0%, 0.20)
+
+      &.facebook
+        button_color(#47639e)
+
+      &.twitter
+        button_color(#4b9ed1)
+
+  .signers-container
+    text-align center
+    padding-bottom 30px
+
+    h1
+      text-transform: uppercase;
+      font-size:30px;
+      line-height:40px;
+      margin: 0.2em 0
+
+    ul
+      list-style none
+      margin 20px 0
+      padding 0
+
+      li
+        width 45px
+        height 45px
+        display inline-block
+        margin 0.5% 1.5%
+        border-radius 50%
+        overflow hidden
+        border 3px solid #eee
+        box-shadow 1px 1px 0 #444
+        background-color #eee
+
+        img
+          width auto
+          height 45px
+
+  .footer
+    padding-bottom 20px
+    font-size 12px
+    text-align center
+
+@media only screen and (min-width: 640px)
+
+  #social
+    padding 0
+    position absolute
+    top 5px
+    left 5px
+
+  #container
+    width:400px;
+    float:right;
+    margin 20px 5% 20px 0
+
+    h1
+      font-size:45px;
+      line-height:50px;
+
+    p
+      font-size:16px;
+      line-height:22px;
+
+    .sign-container
+      .stand-arrow
+        background-size: 300px 225px;
+        width: 264px;
+        height: 211px;
+        position absolute
+        top -160px
+        left -250px
+        display block
+
+    .signers-container
+      ul
+        li
+          width 90px
+          height 90px
+
+          img
+            width auto
+            height 90px
+
+
+
+@media only screen and (min-width: 1160px)
+
+  #container
+    width: 600px;
+    float: right;
+    margin: 20px 15% 20px 0;
+
+    h1
+      font-size: 55px;
+      line-height: 60px;
+
+    p
+      font-size: 18px;
+      line-height: 28px;
+
+    .sign-container
+      .stand-arrow
+        background-size: 400px 300px;
+        width: 352px;
+        height: 281px;
+        position: absolute;
+        top: -242px;
+        left: -372px;

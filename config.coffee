@@ -7,13 +7,23 @@ exports.config =
     javascripts:
       defaultExtension: 'coffee'
       joinTo:
-        'js/app.js': /^app/
-        'js/vendor.js': /^(vendor|bower_components)/
+        'javascripts/app.js': /^app/
+        'javascripts/vendor.js': /^(vendor|bower_components)/
 
     stylesheets:
       defaultExtension: 'styl'
       joinTo:
-        'css/app.css': /^(app|vendor(\/|\\)(?!test))/
+        'stylesheets/app.css': /^(app|vendor(\/|\\)(?!test))/
+
+   plugins:
+      jade:
+        options:          # can be added all the supported jade options
+          pretty: yes     # Adds pretty-indentation whitespaces to output (false by default)
+                          # ...
+        locals:           # locals can be added
+          foo: 'jade is cool'
+      jaded:
+        staticPatterns: /^app(\/|\\)(.+)\.html.jade$/
 
   # http://hackerpreneurialism.com/post/43379675961/nodejs-with-bunch-io#
   server:

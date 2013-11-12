@@ -1,2 +1,8 @@
+# NPM
 node_modules
+
+# Foreman
 .env
+
+# Brunch
+public

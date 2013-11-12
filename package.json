@@ -12,15 +12,12 @@
   },
   "dependencies": {
     "coffee-script": "~1.6.3",
-
     "express": "3.0.0rc3",
     "mongoose": ">=3.1.1",
     "mongoose-findorcreate": "~0.1.2",
-
     "passport": "~0.1.17",
     "passport-facebook": "~1.0.2",
     "passport-twitter": "~1.0.2",
-
     "jade": "~0.20.3",
     "underscore": "~1.5.2",
     "brunch": "~1.7.10",
@@ -30,10 +27,9 @@
     "css-brunch": "1.5.x",
     "stylus-brunch": "1.5.x",
     "clean-css-brunch": ">= 1.0 < 1.8",
-    "jade-brunch": "> 1.0 < 1.5"
+    "jaded-brunch": "~1.7.6"
   },
   "devDependencies": {
-    "nodemon": "*",
     "mocha": "~1.13.0",
     "chai": "~1.8.1",
     "sinon": "~1.7.3"
