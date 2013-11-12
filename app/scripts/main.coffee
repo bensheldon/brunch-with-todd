@@ -39,7 +39,7 @@ $ ->
   initialSkip = 20 - SPECIAL_SIGNERS.length
 
   $.getJSON "/api?limit=#{initialSkip}", (data) ->
-    $('.signers-count').text(data.count)
+    $('.signers-count').text(data.count + SPECIAL_SIGNERS.length)
     addSigners(data)
 
   skip = initialSkip
