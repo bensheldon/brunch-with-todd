@@ -1,8 +1,7 @@
 # GLOBALS
-APP_HOST = process.env.APP_HOST || "http://stand-with-todd.herokuapp.com"
-REDIRECT_AFTER_SIGNED = process.env.REDIRECT_AFTER_SIGNED || "http://www.lettoddwork.org?signed=true"
+APP_HOST = process.env.APP_HOST
 
-MONGOHQ_URL = process.env.MONGOHQ_URL || "mongodb://localhost/stand-with-todd"
+MONGOHQ_URL = process.env.MONGOHQ_URL
 
 EXPRESS_SESSION_SECRET = process.env.EXPRESS_SESSION_SECRET
 

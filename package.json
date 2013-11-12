@@ -1,5 +1,5 @@
 {
-  "name": "stand-with-todd-backend",
+  "name": "brunch-with-todd",
   "version": "0.0.1",
   "engines": {
     "node": "0.10.20",
@@ -12,13 +12,12 @@
   },
   "dependencies": {
     "coffee-script": "~1.6.3",
-    "express": "3.0.0rc3",
-    "mongoose": ">=3.1.1",
+    "express": "3.4.4",
+    "mongoose": "~>3.1.1",
     "mongoose-findorcreate": "~0.1.2",
     "passport": "~0.1.17",
     "passport-facebook": "~1.0.2",
     "passport-twitter": "~1.0.2",
-    "jade": "~0.20.3",
     "underscore": "~1.5.2",
     "brunch": "~1.7.10",
     "javascript-brunch": "~1.5",
@@ -26,8 +25,7 @@
     "uglify-js-brunch": ">= 1.0 < 1.8",
     "css-brunch": "1.5.x",
     "stylus-brunch": "1.5.x",
-    "clean-css-brunch": ">= 1.0 < 1.8",
-    "jaded-brunch": "~1.7.6"
+    "clean-css-brunch": ">= 1.0 < 1.8"
   },
   "devDependencies": {
     "mocha": "~1.13.0",
